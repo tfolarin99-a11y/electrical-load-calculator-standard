@@ -131,6 +131,27 @@
     /* VD GAUGE */
     .vd-gauge{position:relative;height:12px;background:#e2e8f0;border-radius:6px;overflow:hidden;margin:10px 0}
     .vd-fill{height:100%;border-radius:6px;transition:width .5s,background .3s}
+    /* BUSINESS FOOTER */
+    .biz-footer{text-align:center;padding:28px 16px 16px;font-size:11px;color:var(--cm);border-top:1px solid var(--cbr);margin-top:20px}
+    .biz-footer strong{color:var(--cp);font-size:12px}
+
+    /* GUIDE PAGE */
+    .guide-hero{background:linear-gradient(135deg,var(--cp),#166534);color:#fff;border-radius:12px;padding:24px;margin-bottom:20px;text-align:center}
+    .guide-hero h2{font-family:'Space Mono',monospace;font-size:18px;font-weight:700;margin-bottom:6px}
+    .guide-hero p{font-size:13px;opacity:.85;line-height:1.6}
+    .guide-steps{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px;margin-bottom:20px}
+    .guide-step{background:var(--csf);border:1px solid var(--cbr);border-radius:12px;padding:16px;box-shadow:var(--shadow);position:relative;overflow:hidden}
+    .guide-step::before{content:'';position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--ca)}
+    .guide-step .gs-num{width:28px;height:28px;background:var(--cp);color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;font-family:'Space Mono',monospace;margin-bottom:10px}
+    .guide-step h3{font-size:13px;font-weight:700;color:var(--cp);margin-bottom:6px;display:flex;align-items:center;gap:6px}
+    .guide-step p{font-size:12px;color:var(--cm);line-height:1.6}
+    .guide-step .tip{background:#fffbeb;border:1px solid #fde68a;border-radius:6px;padding:7px 10px;font-size:11px;color:#92400e;margin-top:8px;line-height:1.5}
+    .guide-tip-box{background:#f0fdf4;border:1px solid #bbf7d0;border-radius:10px;padding:16px;margin-bottom:14px}
+    .guide-tip-box h3{font-size:12px;font-weight:700;color:var(--ca);text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px}
+    .guide-tip-box ul{list-style:none;display:flex;flex-direction:column;gap:6px}
+    .guide-tip-box li{font-size:12px;color:#166534;display:flex;align-items:flex-start;gap:7px;line-height:1.5}
+    .guide-tip-box li::before{content:'✓';font-weight:700;flex-shrink:0;margin-top:1px}
+
     /* PRINT */
     @media print{
       .nav,.tab-bar,.nav-btns,.no-print{display:none!important}
@@ -152,7 +173,7 @@
 <nav class="nav">
   <div class="nav-left">
     <div class="nav-logo">⚡</div>
-    <div><div class="nav-title">Electrical Load Calculator <span>IEC-Grade Professional Tool</span></div></div>
+    <div><div class="nav-title">Electrical Load Calculator <span>Taewoo Digital Techniques LLC</span></div></div>
     <span class="edition-pill">Standard Edition</span>
   </div>
   <div class="nav-right">
@@ -174,6 +195,7 @@
     <button class="tb" onclick="T(8);calcInv()">🔆 Inverter</button>
     <button class="tb" onclick="T(9);calcTx()">🔄 Transformer</button>
     <button class="tb" onclick="T(10);genReport()">📄 Report</button>
+    <button class="tb" onclick="T(11)">📖 Guide</button>
   </div>
 
   <!-- ══ P0 PROJECT ══ -->
@@ -603,6 +625,56 @@
     <div id="reportOutput"></div>
   </div>
 
+  <!-- ══ P11 GUIDE ══ -->
+  <div class="panel" id="p11">
+    <div class="guide-hero">
+      <div style="font-size:36px;margin-bottom:10px">⚡</div>
+      <h2>How to Use This Tool</h2>
+      <p>A complete step-by-step guide for electrical engineers, technicians and contractors.<br>Work through the tabs from left to right for a full professional calculation workflow.</p>
+      <div style="margin-top:12px;font-size:11px;opacity:.6">Taewoo Digital Techniques LLC — Standard Edition</div>
+    </div>
+    <div class="guide-steps">
+      <div class="guide-step"><div class="gs-num">1</div><h3>📋 Project Tab</h3><p>Start every project here. Fill in the project name, client, location, engineer name, drawing number and applicable standard (IEC, BS 7671, NEC etc.). Set your supply voltage, system type (3-phase or 1-phase), power factor, and installation country. These details appear on your final report.</p><div class="tip">💡 Tip: Selecting the correct voltage here updates ALL calculations in every module automatically.</div></div>
+      <div class="guide-step"><div class="gs-num">2</div><h3>📝 Loads Tab</h3><p>Enter every electrical load in the building. Choose from 8 built-in presets (Office, House, School, Hotel, Warehouse, Hospital, Retail, Factory) to get started quickly. For each load enter: description, category, quantity, unit wattage, power factor, demand factor and phase assignment.</p><div class="tip">💡 Tip: Demand Factor = how often a load runs at full power. Lighting = 1.0, Sockets = 0.4, HVAC = 0.8–0.9, Motors = 0.6–0.8.</div></div>
+      <div class="guide-step"><div class="gs-num">3</div><h3>📊 Demand Tab</h3><p>Select your building type card to apply the correct demand factor, or type a custom value. The tool calculates Connected Load, Demand Load, kW, kVA, kVAR and a Design kVA with your growth margin applied. The phase load bar shows how load is distributed across R, Y and B phases.</p><div class="tip">💡 Tip: Always size main equipment using <strong>Design kVA</strong> — it includes your growth margin.</div></div>
+      <div class="guide-step"><div class="gs-num">4</div><h3>⚡ Current Tab</h3><p>Click <strong>"Import kW from Demand"</strong> to pull your demand figure in automatically. The tool applies the correct formula for your system type and calculates line current, apparent kVA, reactive kVAR and a Design Current with 125% safety factor already applied.</p><div class="tip">💡 Tip: Always use <strong>Design Current (×1.25)</strong> for cable and breaker sizing — never the raw line current.</div></div>
+      <div class="guide-step"><div class="gs-num">5</div><h3>〰 Cables Tab</h3><p>Click <strong>"Import Design Current"</strong> to auto-fill. Select cable material, insulation and installation method (9 options from A1 to F). Set ambient temperature and grouped circuits. The tool applies full IEC derating and recommends the correct cable size with a voltage drop check inline.</p><div class="tip">💡 Tip: Higher ambient temperature and more grouped circuits both reduce cable capacity — the tool handles all derating automatically.</div></div>
+      <div class="guide-step"><div class="gs-num">6</div><h3>🔌 Breakers Tab</h3><p>Click <strong>"Import Line Current"</strong> to fill in the full load current. Select load type — motor and continuous loads trigger the 125% rule. Choose breaking capacity based on your switchgear location. The tool recommends the correct MCB, MCCB or ACB.</p><div class="tip">💡 Tip: For motor loads, always add a DOL or Star-Delta starter in your panel — the breaker alone is not sufficient motor protection.</div></div>
+      <div class="guide-step"><div class="gs-num">7</div><h3>📉 Volt Drop Tab</h3><p>Click <strong>"Import from Cables Module"</strong> to fill current, length and material automatically. Select cable size and your applicable standard (IEC 3%, IEC 5%, NEC 2.5%, BS 4%). The tool shows voltage drop in volts and percent with a visual PASS/FAIL gauge.</p><div class="tip">💡 Tip: If voltage drop fails, try a larger cable size or split the circuit into shorter runs.</div></div>
+      <div class="guide-step"><div class="gs-num">8</div><h3>🔋 Generator Tab</h3><p>Click <strong>"Import from Demand"</strong> to pull in your demand kW. Set your motor starting margin (default 25%) and spare margin (default 20%). Select fuel type, supply rating (Standby/Prime/Continuous) and enclosure type. The tool recommends the correct standard genset size.</p><div class="tip">💡 Tip: Use Standby (STP) rating for emergency backup. Use Prime (PRP) if the generator will run as the main power source.</div></div>
+      <div class="guide-step"><div class="gs-num">9</div><h3>🔆 Inverter Tab</h3><p>Click <strong>"Import from Demand"</strong> or enter your backup load manually. Set backup duration, battery voltage, efficiencies and depth of discharge. The tool calculates the required inverter size in kVA and total number of batteries needed.</p><div class="tip">💡 Tip: LiFePO4 batteries support 90%+ depth of discharge, significantly reducing the number of batteries needed vs lead-acid.</div></div>
+      <div class="guide-step"><div class="gs-num">10</div><h3>🔄 Transformer Tab</h3><p>Click <strong>"Import from Demand"</strong> to fill load kVA. Set loading factor (default 80%), primary/secondary voltages, vector group, cooling type and impedance. The tool recommends the nearest standard transformer size and calculates the fault level at the secondary terminals.</p><div class="tip">💡 Tip: The fault level result sets the minimum breaking capacity (Icu) your downstream switchgear must have.</div></div>
+      <div class="guide-step"><div class="gs-num">11</div><h3>📄 Report Tab</h3><p>Click <strong>"Generate Report"</strong> to produce a full professional summary — project details, load schedule, demand results, and all equipment recommendations. Click <strong>"Print / Save PDF"</strong> and choose "Save as PDF" in your browser's print dialog.</p><div class="tip">💡 Tip: Enable <strong>"Background graphics"</strong> in the print dialog for the best-looking PDF with all colours preserved.</div></div>
+    </div>
+    <div class="guide-tip-box">
+      <h3>✅ Recommended Workflow — Standard Edition</h3>
+      <ul>
+        <li>Always start at the Project tab — set system voltage and type correctly before anything else</li>
+        <li>Use load presets as a starting point, then customise rows to match your actual project</li>
+        <li>Work left to right through the tabs — each module feeds into the next</li>
+        <li>Use the <strong>"Import"</strong> buttons in each tab to carry results across modules automatically</li>
+        <li>Always size cables and breakers using the 125% Design Current, not the raw line current</li>
+        <li>Always check voltage drop — especially for cable runs over 30m</li>
+        <li>Size the transformer at 80% loading maximum to allow for future load growth</li>
+        <li>The fault level from the Transformer module sets the minimum Icu rating for your breakers</li>
+        <li>Save your PDF report before closing the browser — data is not saved between sessions</li>
+        <li>For official project submissions, have all calculations reviewed and stamped by a registered engineer</li>
+      </ul>
+    </div>
+    <div class="card" style="text-align:center;padding:24px">
+      <div style="font-size:28px;margin-bottom:10px">⚡</div>
+      <div style="font-family:'Space Mono',monospace;font-size:14px;font-weight:700;color:var(--cp);margin-bottom:4px">Taewoo Digital Techniques LLC</div>
+      <div style="font-size:12px;color:var(--cm)">Professional Electrical Engineering Tools</div>
+      <div style="margin-top:14px;font-size:11px;color:var(--cm)">Standard Edition — IEC-Grade Electrical Load Calculator</div>
+      <div style="font-size:11px;color:var(--cm);margin-top:3px">All calculations follow IEC 60364 principles. Results are engineering estimates — verify against site conditions and applicable local standards.</div>
+    </div>
+  </div>
+
+</div><!-- end .app -->
+
+<div class="biz-footer">
+  <strong>Taewoo Digital Techniques LLC</strong> — Professional Electrical Engineering Tools<br>
+  Standard Edition &nbsp;|&nbsp; IEC-Grade Electrical Load Calculator &nbsp;|&nbsp; All results are engineering estimates
 </div>
 
 <script>
@@ -956,5 +1028,6 @@ calcDemand();
 buildRefTable(null);
 renderChips('breakerChips',BR,null);
 </script>
+
 </body>
 </html>
