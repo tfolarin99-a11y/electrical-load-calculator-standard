@@ -3,28 +3,31 @@
   <div class="hdr-logo">⚡</div>
   <div>
     <h1>ElectraSuite</h1>
-    <p>14-Module IEC-Grade Tool — Electrical design, analysis & reporting</p>
-    <div class="plan-banner" id="planBanner"></div>
+    <p>14-Module IEC-Grade Tool — Electrical design, analysis &amp; reporting</p>
   </div>
+  <span class="plan-badge">Standard</span>
 </div>
 
 <div class="tabs-wrap">
 <div class="tabs" id="tabsBar">
-  <div class="tab active" data-tab="0" onclick="gotoTab(0)">📋 Project ID</div>
-  <div class="tab" data-tab="1" onclick="gotoTab(1)">📝 Loads</div>
-  <div class="tab" data-tab="2" onclick="gotoTab(2)">📊 Demand</div>
-  <div class="tab" data-tab="3" onclick="gotoTab(3)">⚡ Current</div>
-  <div class="tab" data-tab="4" onclick="gotoTab(4)">〰 Cable Selection</div>
-  <div class="tab" data-tab="5" onclick="gotoTab(5)">📉 Volt Drop</div>
-  <div class="tab" data-tab="6" onclick="gotoTab(6)">🔌 Breaker</div>
-  <div class="tab" data-tab="7" onclick="gotoTab(7)">🔋 Generator</div>
-  <div class="tab" data-tab="8" onclick="gotoTab(8)">🔆 Inverter</div>
-  <div class="tab" data-tab="9" onclick="gotoTab(9)">🔄 Transformer</div>
-  <div class="tab" data-tab="10" onclick="gotoTab(10)">📦 BOM</div>
-  <div class="tab" data-tab="11" onclick="gotoTab(11)">⚖ Phase Bal.</div>
-  <div class="tab" data-tab="12" onclick="gotoTab(12)">🌍 Carbon Footprint</div>
-  <div class="tab" data-tab="13" onclick="gotoTab(13)">💰 Utility Cost</div>
-  <div class="tab" data-tab="14" onclick="gotoTab(14)">📄 Report</div>
+  <!-- UNLOCKED TABS -->
+  <div class="tab active" onclick="safeT(0)" title="Project Details">📋 Project ID</div>
+  <div class="tab" onclick="safeT(1)" title="Load Scheduling">📝 Loads</div>
+  <div class="tab" onclick="safeT(2)" title="Demand Calculation">📊 Demand</div>
+  <div class="tab" onclick="safeT(3)" title="Current Calculation">⚡ Current</div>
+  <div class="tab" onclick="safeT(4)" title="Cable Selection">〰 Cable Selection</div>
+  <div class="tab" onclick="safeT(5,cVD)" title="Voltage Drop">📉 Volt Drop</div>
+  <div class="tab" onclick="safeT(6,cBrk)" title="Breaker Sizing">🔌 Breaker</div>
+  <div class="tab" onclick="safeT(7)" title="Generator Sizing">🔋 Generator</div>
+  <div class="tab" onclick="safeT(8)" title="Inverter Sizing">🔆 Inverter</div>
+  <div class="tab" onclick="safeT(9)" title="Transformer Sizing">🔄 Transformer</div>
+  <!-- LOCKED TABS — visible, locked, with tooltip -->
+  <div class="tab tab-locked" onclick="safeT(10)" title="Upgrade to Pro — Bill of Materials">📦 BOM</div>
+  <div class="tab tab-locked" onclick="safeT(11)" title="Upgrade to Pro — Phase Balancing">⚖ Phase Bal.</div>
+  <div class="tab tab-locked" onclick="safeT(12)" title="Upgrade to Pro — Carbon Footprint">🌍 Carbon Footprint</div>
+  <div class="tab tab-locked" onclick="safeT(13)" title="Upgrade to Pro — Utility Cost">💰 Utility Cost</div>
+  <!-- UNLOCKED REPORT -->
+  <div class="tab" onclick="safeT(14,genReport)" title="Generate Report">📄 Report</div>
 </div>
 <div class="tabs-scroll-hint tabs-scroll-hint-left" id="tabsScrollHintLeft">scroll ‹‹</div>
 <div class="tabs-scroll-hint tabs-scroll-hint-right" id="tabsScrollHintRight">›› scroll</div>
@@ -53,7 +56,7 @@
     </div>
     <div class="al ai" style="margin-top:10px">ℹ All modules use these settings as defaults.</div>
   </div>
-  <div class="nvr"><div></div><button class="nb" onclick="gotoTab(1)">Next: Loads →</button></div>
+  <div class="nvr"><div></div><button class="nb" onclick="safeT(1)">Next: Loads →</button></div>
 </div>
 
 <!-- P1 LOADS -->
@@ -76,7 +79,7 @@
     </div>
     <div class="tb2"><span>Total Connected Load</span><span class="big" id="totConn">0 W</span></div>
   </div>
-  <div class="nvr"><button class="nb" onclick="gotoTab(0)">← Back</button><button class="nb" onclick="gotoTab(2)">Next: Demand →</button></div>
+  <div class="nvr"><button class="nb" onclick="safeT(0)">← Back</button><button class="nb" onclick="safeT(2,cD)">Next: Demand →</button></div>
 </div>
 
 <!-- P2 DEMAND -->
@@ -110,7 +113,7 @@
     <div id="dAlert"></div>
     <div style="margin-top:10px"><div style="font-size:11px;font-weight:700;color:var(--cm);text-transform:uppercase;margin-bottom:5px">Load by Phase</div><div id="pBar"></div></div>
   </div>
-  <div class="nvr"><button class="nb" onclick="gotoTab(1)">← Back</button><button class="nb" onclick="gotoTab(3)">Next: Current →</button></div>
+  <div class="nvr"><button class="nb" onclick="safeT(1)">← Back</button><button class="nb" onclick="safeT(3,uCC)">Next: Current →</button></div>
 </div>
 
 <!-- P3 CURRENT -->
@@ -133,7 +136,7 @@
     </div>
     <div class="al ai">ℹ 125% rule applied. Use Design Current for cable and breaker sizing.</div>
   </div>
-  <div class="nvr"><button class="nb" onclick="gotoTab(2)">← Back</button><button class="nb" onclick="gotoTab(4)">Next: Cable →</button></div>
+  <div class="nvr"><button class="nb" onclick="safeT(2)">← Back</button><button class="nb" onclick="safeT(4,cCab)">Next: Cable →</button></div>
 </div>
 
 <!-- P4 CABLES -->
@@ -153,7 +156,7 @@
     </div>
   </div>
   <div class="sec"><div class="st">📋 Cable Result</div><div id="cabRes"></div><div class="dv"></div><div style="font-size:11px;font-weight:700;color:var(--cm);margin-bottom:7px;text-transform:uppercase">IEC Ref — Cu XLPE Method C 30°C</div><div style="overflow-x:auto"><table id="cabRefTbl"></table></div></div>
-  <div class="nvr"><button class="nb" onclick="gotoTab(3)">← Back</button><button class="nb" onclick="gotoTab(5)">Next: Volt Drop →</button></div>
+  <div class="nvr"><button class="nb" onclick="safeT(3)">← Back</button><button class="nb" onclick="safeT(5,cVD)">Next: Volt Drop →</button></div>
 </div>
 
 <!-- P5 VD -->
@@ -171,7 +174,7 @@
     <div class="fb">1Φ: VD = (2×L×I×R)÷1000   |   3Φ: VD = (√3×L×I×R)÷1000</div>
   </div>
   <div class="sec"><div class="st">📋 Results</div><div id="vdRes"></div></div>
-  <div class="nvr"><button class="nb" onclick="gotoTab(4)">← Back</button><button class="nb" onclick="gotoTab(6)">Next: Breakers →</button></div>
+  <div class="nvr"><button class="nb" onclick="safeT(4)">← Back</button><button class="nb" onclick="safeT(6,cBrk)">Next: Breakers →</button></div>
 </div>
 
 <!-- P6 BREAKERS -->
@@ -186,7 +189,7 @@
     <div class="fb">Rating ≥ 1.25 × FLC (continuous/motor) | Next standard rating above FLC</div>
   </div>
   <div class="sec"><div class="st">✅ Recommended Breaker</div><div id="brkRes"></div><div class="dv"></div><div style="font-size:11px;font-weight:700;color:var(--cm);margin-bottom:7px;text-transform:uppercase">Standard Ratings (A)</div><div style="display:flex;flex-wrap:wrap;gap:5px" id="brkTbl"></div></div>
-  <div class="nvr"><button class="nb" onclick="gotoTab(5)">← Back</button><button class="nb" onclick="gotoTab(7)">Next: Generator →</button></div>
+  <div class="nvr"><button class="nb" onclick="safeT(5)">← Back</button><button class="nb" onclick="safeT(7)">Next: Generator →</button></div>
 </div>
 
 <!-- P7 GENERATOR -->
@@ -203,7 +206,7 @@
     </div>
   </div>
   <div class="sec"><div class="st">✅ Recommendation</div><div id="genRes"></div></div>
-  <div class="nvr"><button class="nb" onclick="gotoTab(6)">← Back</button><button class="nb" onclick="gotoTab(8)">Next: Inverter →</button></div>
+  <div class="nvr"><button class="nb" onclick="safeT(6)">← Back</button><button class="nb" onclick="safeT(8,cInv)">Next: Inverter →</button></div>
 </div>
 
 <!-- P8 INVERTER -->
@@ -222,7 +225,7 @@
     </div>
   </div>
   <div class="sec"><div class="st">✅ Results</div><div id="invRes"></div></div>
-  <div class="nvr"><button class="nb" onclick="gotoTab(7)">← Back</button><button class="nb" onclick="gotoTab(9)">Next: Transformer →</button></div>
+  <div class="nvr"><button class="nb" onclick="safeT(7)">← Back</button><button class="nb" onclick="safeT(9,cTx)">Next: Transformer →</button></div>
 </div>
 
 <!-- P9 TRANSFORMER -->
@@ -239,159 +242,20 @@
     </div>
   </div>
   <div class="sec"><div class="st">✅ Recommendation</div><div id="txRes"></div></div>
-  <div class="nvr"><button class="nb" onclick="gotoTab(8)">← Back</button><button class="nb" onclick="gotoTab(10)">Next: BOM →</button></div>
+  <div class="nvr"><button class="nb" onclick="safeT(8)">← Back</button><button class="nb" onclick="safeT(14,genReport)">Next: Report →</button></div>
 </div>
 
-<!-- P10 BOM -->
-<div class="panel" id="p10">
-  <div class="sec"><div class="st">📦 Bill of Materials</div>
-    <div class="al ai">ℹ Auto-generated from all modules. Review and adjust quantities as needed.</div>
-    <div style="overflow-x:auto"><table id="bomTbl"><thead><tr><th>Item</th><th>Specification</th><th>Unit</th><th>Qty</th><th>Remarks</th></tr></thead><tbody id="bomBody"></tbody></table></div>
-    <div style="margin-top:10px;display:flex;gap:7px">
-      <button class="btn bp bsm" onclick="gBOM()">🔄 Regenerate</button>
-      <button class="btn bs bsm" onclick="exBOM()">⬇ Export CSV</button>
-    </div>
-  </div>
-  <div class="nvr"><button class="nb" onclick="gotoTab(9)">← Back</button><button class="nb" onclick="gotoTab(11)">Next: Phase Bal. →</button></div>
-</div>
+<!-- P10 BOM — locked panel (content never shown; guard blocks access) -->
+<div class="panel" id="p10"></div>
 
-<!-- P11 PHASE BALANCER -->
-<div class="panel" id="p11">
-  <div class="sec"><div class="st">⚖ Phase Load Balancing Optimizer</div>
-    <div class="al ai">ℹ Analyzes your load schedule, detects phase imbalance, and suggests optimal reassignments.</div>
-  </div>
-  <div class="sec">
-    <div class="st">📊 Balance Score</div>
-    <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:stretch">
-      <div class="im" style="flex:0 0 155px">
-        <div style="font-size:10px;font-weight:700;color:var(--cm);text-transform:uppercase;letter-spacing:.5px;margin-bottom:5px">Imbalance Index</div>
-        <div class="is" id="pb_sc">—</div>
-        <div style="font-size:11px;color:var(--cm);margin-top:5px" id="pb_scl">Run analysis first</div>
-      </div>
-      <div style="flex:1;min-width:200px;display:flex;flex-direction:column;gap:10px;justify-content:center">
-        <div style="display:flex;gap:8px">
-          <div class="pc pR" style="flex:1"><div class="pl">R</div><div class="pkw" id="pbR_kw">0 kW</div><div class="ppct" id="pbR_pct">0%</div><div class="pbt"><div class="pfR" id="pbR_b" style="width:0%"></div></div></div>
-          <div class="pc pY" style="flex:1"><div class="pl">Y</div><div class="pkw" id="pbY_kw">0 kW</div><div class="ppct" id="pbY_pct">0%</div><div class="pbt"><div class="pfY" id="pbY_b" style="width:0%"></div></div></div>
-          <div class="pc pB" style="flex:1"><div class="pl">B</div><div class="pkw" id="pbB_kw">0 kW</div><div class="ppct" id="pbB_pct">0%</div><div class="pbt"><div class="pfB" id="pbB_b" style="width:0%"></div></div></div>
-        </div>
-        <div class="mgs" style="margin:0">
-          <div class="mg"><div class="v" id="pb_tot">0</div><div class="u">kW</div><div class="l">Single-Ph</div></div>
-          <div class="mg"><div class="v" id="pb_dev">0</div><div class="u">%</div><div class="l">Max Dev.</div></div>
-          <div class="mg"><div class="v" id="pb_ni">0</div><div class="u">A</div><div class="l">Neutral Current</div></div>
-        </div>
-      </div>
-    </div>
-    <div style="margin-top:10px;display:flex;gap:7px;flex-wrap:wrap">
-      <button class="btn bp" onclick="runPB()">🔄 Analyse</button>
-      <button class="btn ba" onclick="applyAll()">✅ Apply All</button>
-      <button class="btn bsm" style="border:1px solid var(--cbr)" onclick="revertAll()">↩ Revert All</button>
-    </div>
-  </div>
-  <div class="sec" id="pbCmpSec" style="display:none">
-    <div class="st">🔁 Before vs After</div>
-    <div class="cgrid">
-      <div class="cc"><div class="ch bef">Before</div><div style="padding:10px" id="pbBefBody"></div></div>
-      <div class="cc"><div class="ch aft">After</div><div style="padding:10px" id="pbAftBody"></div></div>
-    </div>
-  </div>
-  <div class="sec"><div class="st">💡 Suggested Reassignments</div><div id="pbSugg"><div class="al ai">ℹ Click "Analyse" to generate suggestions.</div></div></div>
-  <div class="sec"><div class="st">✏ Manual Override Table</div>
-    <div class="al ai" style="margin-bottom:8px">ℹ Manually reassign single-phase loads.</div>
-    <div style="overflow-x:auto"><table><thead><tr><th>#</th><th>Description</th><th>Category</th><th>Load (W)</th><th>Current Phase</th><th>Reassign To</th></tr></thead><tbody id="pbManTbl"></tbody></table></div>
-  </div>
-  <div class="nvr"><button class="nb" onclick="gotoTab(10)">← Back</button><button class="nb" onclick="gotoTab(12)">Next: Carbon Footprint →</button></div>
-</div>
+<!-- P11 PHASE BALANCER — locked panel -->
+<div class="panel" id="p11"></div>
 
-<!-- P12 ENERGY & CARBON -->
-<div class="panel" id="p12">
-  <div class="sec">
-    <div class="st">🌍 Energy Consumption &amp; Carbon Footprint</div>
-    <div class="g3">
-      <div class="fld"><label>Operating Hours / Day</label><input type="number" id="e_hrs" value="10" min="1" max="24" step="0.5" oninput="calcEnergy()"></div>
-      <div class="fld"><label>Operating Days / Week</label><input type="number" id="e_days" value="5" min="1" max="7" oninput="calcEnergy()"></div>
-      <div class="fld"><label>Weeks / Year</label><input type="number" id="e_wks" value="50" min="1" max="52" oninput="calcEnergy()"></div>
-    </div>
-    <div style="margin-top:10px">
-      <div class="fld" style="margin-bottom:10px"><label>Grid Emission Factor (kg CO₂/kWh)</label></div>
-      <div class="emf-grid" id="emfGrid">
-        <div class="emf-card sel" onclick="selEMF(0.431,'Nigeria',this)"><div class="ef-val">0.431</div><div class="ef-lbl">🇳🇬 Nigeria</div></div>
-        <div class="emf-card" onclick="selEMF(0.233,'UK',this)"><div class="ef-val">0.233</div><div class="ef-lbl">🇬🇧 UK</div></div>
-        <div class="emf-card" onclick="selEMF(0.386,'USA',this)"><div class="ef-val">0.386</div><div class="ef-lbl">🇺🇸 USA</div></div>
-        <div class="emf-card" onclick="selEMF(0.490,'South Africa',this)"><div class="ef-val">0.490</div><div class="ef-lbl">🇿🇦 South Africa</div></div>
-        <div class="emf-card" onclick="selEMF(0.380,'UAE',this)"><div class="ef-val">0.380</div><div class="ef-lbl">🇦🇪 UAE</div></div>
-        <div class="emf-card" onclick="selEMF(0.370,'Ghana',this)"><div class="ef-val">0.370</div><div class="ef-lbl">🇬🇭 Ghana</div></div>
-        <div class="emf-card" onclick="selEMF(0.630,'Kenya',this)"><div class="ef-val">0.630</div><div class="ef-lbl">🇰🇪 Kenya</div></div>
-        <div class="emf-card" onclick="selEMF(0.460,'India',this)"><div class="ef-val">0.460</div><div class="ef-lbl">🇮🇳 India</div></div>
-      </div>
-      <div class="fld" style="margin-top:8px"><label>Custom Emission Factor</label><input type="number" id="e_emf" value="0.431" step="0.001" oninput="calcEnergy()"></div>
-    </div>
-  </div>
-  <div class="sec">
-    <div class="st">📊 Energy Results</div>
-    <div class="eco-hero">
-      <div class="eco-card"><div class="eco-val" id="e_daily">0</div><div class="eco-unit">kWh</div><div class="eco-lbl">Daily</div></div>
-      <div class="eco-card"><div class="eco-val" id="e_monthly">0</div><div class="eco-unit">kWh</div><div class="eco-lbl">Monthly</div></div>
-      <div class="eco-card"><div class="eco-val" id="e_annual">0</div><div class="eco-unit">kWh</div><div class="eco-lbl">Annual</div></div>
-      <div class="eco-card"><div class="eco-val" id="e_co2_annual">0</div><div class="eco-unit">t CO₂/yr</div><div class="eco-lbl">Carbon (Annual)</div></div>
-      <div class="eco-card"><div class="eco-val" id="e_co2_monthly">0</div><div class="eco-unit">kg CO₂</div><div class="eco-lbl">Carbon (Monthly)</div></div>
-    </div>
-    <div class="tree-row"><div class="tree-icon">🌳</div><div><div style="font-size:13px;font-weight:700;color:var(--cs)" id="e_trees">—</div><div style="font-size:11px;color:var(--cm);margin-top:2px">trees needed annually to offset this carbon footprint</div></div></div>
-    <div class="dv"></div>
-    <div style="font-size:11px;font-weight:700;color:var(--cm);margin-bottom:8px;text-transform:uppercase">Energy Breakdown by Category</div>
-    <div id="catBreakdown"></div>
-    <div class="dv"></div>
-    <div class="g3" style="margin-top:8px">
-      <div class="mg"><div class="v" id="e_pkfac">0</div><div class="u">kVA</div><div class="l">Peak Demand</div></div>
-      <div class="mg"><div class="v" id="e_lf">0</div><div class="u">%</div><div class="l">Load Factor</div></div>
-      <div class="mg"><div class="v" id="e_kgpkwh">0</div><div class="u">kg/kWh</div><div class="l">Carbon Intensity</div></div>
-    </div>
-  </div>
-  <div class="nvr"><button class="nb" onclick="gotoTab(11)">← Back</button><button class="nb" onclick="gotoTab(13)">Next: Utility Cost →</button></div>
-</div>
+<!-- P12 ENERGY & CARBON — locked panel -->
+<div class="panel" id="p12"></div>
 
-<!-- P13 UTILITY COST -->
-<div class="panel" id="p13">
-  <div class="sec">
-    <div class="st">💰 Utility Tariff Configuration</div>
-    <div style="font-size:12px;color:var(--cm);margin-bottom:8px;margin-top:4px">📍 Select your location to load the applicable utility tariff:</div>
-    <div class="pbs" id="tariffPresets">
-      <button class="pb active" onclick="setTariff('ng',this)">🇳🇬 Nigeria (NERC)</button>
-      <button class="pb" onclick="setTariff('uk',this)">🇬🇧 UK</button>
-      <button class="pb" onclick="setTariff('us',this)">🇺🇸 USA</button>
-      <button class="pb" onclick="setTariff('gh',this)">🇬🇭 Ghana</button>
-      <button class="pb" onclick="setTariff('za',this)">🇿🇦 South Africa</button>
-      <button class="pb" onclick="setTariff('uae',this)">🇦🇪 UAE</button>
-      <button class="pb" onclick="setTariff('custom',this)">✏ Custom</button>
-    </div>
-    <div class="g3">
-      <div class="fld"><label>Energy Tariff ($/kWh)</label><input type="number" id="u_tariff" value="0.055" step="0.001" oninput="calcUtility()"></div>
-      <div class="fld"><label>Demand Charge ($/kVA/month)</label><input type="number" id="u_dem_chg" value="3.50" step="0.1" oninput="calcUtility()"></div>
-      <div class="fld"><label>Fixed Monthly Charge ($)</label><input type="number" id="u_fixed" value="15" step="1" oninput="calcUtility()"></div>
-      <div class="fld"><label>Power Factor Penalty (%)</label><input type="number" id="u_pfpen" value="0" step="0.5" oninput="calcUtility()"></div>
-      <div class="fld"><label>Taxes / Levies (%)</label><input type="number" id="u_tax" value="7.5" step="0.5" oninput="calcUtility()"></div>
-      <div class="fld"><label>Currency Symbol</label><input type="text" id="u_cur" value="$" style="max-width:80px" oninput="calcUtility()"></div>
-    </div>
-  </div>
-  <div class="sec">
-    <div class="st">📊 Monthly Bill Estimate</div>
-    <div class="cost-hero">
-      <div style="margin-bottom:8px"><div class="lbl" style="font-size:10px;opacity:.7;text-transform:uppercase;letter-spacing:.5px">Estimated Monthly Utility Bill</div><div class="cost-main" id="u_monthly_bill">$0.00</div><div class="cost-sub" id="u_annual_label">Annual: $0.00</div></div>
-      <div class="mgs" style="margin:0">
-        <div class="mg" style="background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.2)"><div class="v" style="color:#6ee7b7" id="u_energy_cost">$0</div><div class="u" style="color:rgba(255,255,255,.6)">$/mo</div><div class="l" style="color:rgba(255,255,255,.5)">Energy</div></div>
-        <div class="mg" style="background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.2)"><div class="v" style="color:#6ee7b7" id="u_dem_cost">$0</div><div class="u" style="color:rgba(255,255,255,.6)">$/mo</div><div class="l" style="color:rgba(255,255,255,.5)">Demand</div></div>
-        <div class="mg" style="background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.2)"><div class="v" style="color:#6ee7b7" id="u_fixed_cost">$0</div><div class="u" style="color:rgba(255,255,255,.6)">$/mo</div><div class="l" style="color:rgba(255,255,255,.5)">Fixed</div></div>
-        <div class="mg" style="background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.2)"><div class="v" style="color:#6ee7b7" id="u_tax_cost">$0</div><div class="u" style="color:rgba(255,255,255,.6)">$/mo</div><div class="l" style="color:rgba(255,255,255,.5)">Tax/Levy</div></div>
-      </div>
-    </div>
-    <div class="dv"></div>
-    <div style="font-size:11px;font-weight:700;color:var(--cm);margin-bottom:8px;text-transform:uppercase">Cost Breakdown by Category</div>
-    <div class="cost-breakdown" id="costBreakdown"></div>
-    <div class="dv"></div>
-    <div style="font-size:11px;font-weight:700;color:var(--cm);margin-bottom:8px;text-transform:uppercase">💡 Energy Saving Recommendations</div>
-    <div id="savingTips"></div>
-  </div>
-  <div class="nvr"><button class="nb" onclick="gotoTab(12)">← Back</button><button class="nb" onclick="gotoTab(14)">Next: Report →</button></div>
-</div>
+<!-- P13 UTILITY COST — locked panel -->
+<div class="panel" id="p13"></div>
 
 <!-- P14 REPORT -->
 <div class="panel" id="p14">
@@ -403,26 +267,6 @@
     <div id="repOut"></div>
   </div>
 </div>
-</div>
-<!-- UPGRADE MODAL — rendered by access-control.js -->
-<div id="upgradeModal" role="dialog" aria-modal="true" aria-labelledby="um-title">
-  <div class="um-box">
-    <div class="um-header">
-      <div class="um-icon">🔒</div>
-      <div>
-        <div class="um-plan-badge" id="umPlanBadge">Pro Feature</div>
-        <div class="um-title" id="umTitle">Advanced Feature</div>
-      </div>
-    </div>
-    <div class="um-body">
-      <div class="um-feature-name" id="umFeatureName"></div>
-      <div class="um-message" id="umMessage"></div>
-      <div class="um-actions">
-        <button class="um-btn-upgrade" id="umUpgradeBtn" onclick="closeUpgradeModal()">Upgrade to Pro</button>
-        <button class="um-btn-close" onclick="closeUpgradeModal()">Close</button>
-      </div>
-    </div>
-  </div>
 </div>
 
 <script>
