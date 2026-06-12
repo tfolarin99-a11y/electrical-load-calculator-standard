@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>How to Use — ElectraSuite</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #f8fafc;
+      --nav: #1a3a5c;
+      --accent: #f59e0b;
+      --text: #1e293b;
+      --muted: #64748b;
+      --border: #e2e8f0;
+      --card: #fff;
+      --blue: #1a3a5c;
+      --green: #16a34a;
+      --orange: #d97706;
+      --red: #dc2626;
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    /* ── NAV ── */
+    nav {
+      background: var(--nav);
+      padding: 0 24px;
+      height: 52px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.25);
+    }
+
+    .nav-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .nav-logo {
+      width: 30px; height: 30px;
+      background: var(--accent);
+      border-radius: 7px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      font-weight: 800;
+    }
+
+    .nav-brand {
+      display: flex;
+      flex-direction: column;
+      gap: 1px;
+    }
+    .nav-title {
+      font-family: 'Space Mono', monospace;
+      font-size: 11.5px;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: 0.2px;
+      line-height: 1;
+    }
+    .nav-company {
+      font-size: 9px;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      font-weight: 600;
+    }
+
+    .nav-right {
+      display: flex;
+      gap: 8px;
+    }
+
+    .nav-btn {
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .nav-btn-outline {
+      border: 1px solid rgba(255,255,255,0.2);
+      color: rgba(255,255,255,0.8);
+      background: transparent;
+    }
+    .nav-btn-outline:hover { background: rgba(255,255,255,0.1); color: #fff; }
+
+    .nav-btn-primary {
+      background: var(--accent);
+      color: var(--nav);
+      border: none;
+    }
+    .nav-btn-primary:hover { background: #e08b00; }
+
+    /* ── HERO ── */
+    .hero {
+      background: linear-gradient(135deg, #0f2644 0%, #1a3a5c 60%, #1e4976 100%);
+      color: #fff;
+      padding: 56px 24px 48px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image:
+        linear-gradient(rgba(245,158,11,0.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(245,158,11,0.06) 1px, transparent 1px);
+      background-size: 36px 36px;
+      pointer-events: none;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      background: rgba(245,158,11,0.15);
+      border: 1px solid rgba(245,158,11,0.35);
+      color: var(--accent);
+      font-size: 11px;
+      font-weight: 700;
+      padding: 4px 14px;
+      border-radius: 20px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+
+    .hero h1 {
+      font-family: 'Space Mono', monospace;
+      font-size: clamp(22px, 5vw, 34px);
+      font-weight: 700;
+      line-height: 1.2;
+      margin-bottom: 14px;
+      position: relative;
+    }
+
+    .hero h1 span { color: var(--accent); }
+
+    .hero p {
+      font-size: 15px;
+      opacity: 0.8;
+      max-width: 600px;
+      margin: 0 auto 24px;
+      line-height: 1.7;
+    }
+
+    .hero-stats {
+      display: flex;
+      justify-content: center;
+      gap: 28px;
+      flex-wrap: wrap;
+      position: relative;
+    }
+
+    .stat {
+      text-align: center;
+    }
+    .stat-val {
+      font-family: 'Space Mono', monospace;
+      font-size: 26px;
+      font-weight: 700;
+      color: var(--accent);
+      line-height: 1;
+    }
+    .stat-lbl {
+      font-size: 11px;
+      opacity: 0.65;
+      margin-top: 3px;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    /* ── MAIN LAYOUT ── */
+    .wrap {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 0 20px 60px;
+    }
+
+    /* ── QUICK START ── */
+    .quick-start {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+      margin: 28px 0;
+    }
+
+    .section-title {
+      font-family: 'Space Mono', monospace;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--blue);
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 12px;
+    }
+
+    .step {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+
+    .step-num {
+      width: 28px;
+      height: 28px;
+      background: var(--blue);
+      color: #fff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Space Mono', monospace;
+      font-size: 12px;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .step-text strong {
+      display: block;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text);
+      margin-bottom: 3px;
+    }
+    .step-text span {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    /* ── MODULE CARDS ── */
+    .modules {
+      display: grid;
+      gap: 14px;
+      margin-top: 8px;
+    }
+
+    .mod-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .mod-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 18px;
+      cursor: pointer;
+      user-select: none;
+      transition: background 0.15s;
+    }
+    .mod-header:hover { background: #f1f5f9; }
+
+    .mod-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 9px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+
+    .mod-info { flex: 1; }
+    .mod-info strong {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text);
+      display: block;
+    }
+    .mod-info span {
+      font-size: 11.5px;
+      color: var(--muted);
+    }
+
+    .mod-badge {
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 10px;
+      letter-spacing: 0.3px;
+    }
+
+    .badge-blue { background: #dbeafe; color: #1d4ed8; }
+    .badge-green { background: #dcfce7; color: #15803d; }
+    .badge-orange { background: #fef3c7; color: #b45309; }
+    .badge-purple { background: #ede9fe; color: #6d28d9; }
+
+    .mod-toggle {
+      font-size: 16px;
+      color: var(--muted);
+      transition: transform 0.25s;
+      margin-left: 6px;
+    }
+    .mod-toggle.open { transform: rotate(90deg); }
+
+    .mod-body {
+      display: none;
+      padding: 0 18px 16px;
+      border-top: 1px solid var(--border);
+    }
+    .mod-body.open { display: block; }
+
+    .mod-body p {
+      font-size: 13px;
+      color: var(--muted);
+      margin: 12px 0 10px;
+      line-height: 1.65;
+    }
+
+    .mod-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    @media (max-width: 520px) {
+      .mod-grid { grid-template-columns: 1fr; }
+    }
+
+    .mod-field {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 10px 12px;
+    }
+    .mod-field .lbl {
+      font-size: 10px;
+      font-weight: 700;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 4px;
+    }
+    .mod-field .val {
+      font-size: 12.5px;
+      color: var(--text);
+    }
+
+    .tip-box {
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      border-left: 3px solid var(--accent);
+      border-radius: 0 7px 7px 0;
+      padding: 10px 13px;
+      font-size: 12px;
+      color: #92400e;
+      margin-top: 10px;
+    }
+
+    .tip-box strong { color: #78350f; }
+
+    /* ── TIPS SECTION ── */
+    .tips-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    .tip-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 16px;
+    }
+
+    .tip-card .tc-icon {
+      font-size: 24px;
+      margin-bottom: 8px;
+    }
+
+    .tip-card strong {
+      display: block;
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 5px;
+      color: var(--text);
+    }
+
+    .tip-card p {
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    /* ── WORKFLOW ── */
+    .workflow {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 22px;
+      margin: 14px 0;
+    }
+
+    .wf-list {
+      list-style: none;
+      margin-top: 12px;
+    }
+
+    .wf-list li {
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+      padding: 8px 0;
+      border-bottom: 1px dashed var(--border);
+    }
+    .wf-list li:last-child { border-bottom: none; }
+
+    .wf-arrow {
+      font-size: 18px;
+      flex-shrink: 0;
+      line-height: 1.4;
+    }
+
+    .wf-text strong {
+      font-size: 13px;
+      display: block;
+      color: var(--text);
+    }
+    .wf-text span {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    /* ── CTA ── */
+    .cta {
+      background: linear-gradient(135deg, #1a3a5c, #1e4976);
+      border-radius: 14px;
+      padding: 30px 24px;
+      text-align: center;
+      color: #fff;
+      margin-top: 28px;
+    }
+
+    .cta h2 {
+      font-family: 'Space Mono', monospace;
+      font-size: 20px;
+      margin-bottom: 10px;
+    }
+    .cta h2 span { color: var(--accent); }
+
+    .cta p {
+      font-size: 13px;
+      opacity: 0.75;
+      margin-bottom: 20px;
+    }
+
+    .cta-btn {
+      display: inline-block;
+      background: var(--accent);
+      color: var(--nav);
+      font-family: 'Space Mono', monospace;
+      font-size: 13px;
+      font-weight: 700;
+      padding: 12px 28px;
+      border-radius: 8px;
+      text-decoration: none;
+      transition: all 0.2s;
+    }
+    .cta-btn:hover { background: #e08b00; transform: translateY(-1px); box-shadow: 0 4px 20px rgba(245,158,11,0.35); }
+
+    /* ── FOOTER ── */
+    footer {
+      text-align: center;
+      padding: 20px;
+      font-size: 11px;
+      color: var(--muted);
+      border-top: 1px solid var(--border);
+    }
+
+    /* ── SCROLL ANIMATION ── */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(16px);
+      transition: opacity 0.4s ease, transform 0.4s ease;
+    }
+    .fade-in.visible {
+      opacity: 1;
+      transform: none;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-left">
+      <div class="nav-logo">⚡</div>
+      <div class="nav-brand">
+        <span class="nav-title">ElectraSuite</span>
+        <span class="nav-company">Taewoo Digital</span>
+      </div>
+    </div>
+    <div class="nav-right">
+      <a class="nav-btn nav-btn-outline" href="/auth/">Sign In</a>
+      <a class="nav-btn nav-btn-primary" href="/dashboard/">Open App →</a>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-badge">User Guide</div>
+    <h1>How to Use the<br><span>ElectraSuite</span></h1>
+    <p>A step-by-step walkthrough of all 14 modules — from entering your first load to printing a professional engineer's report.</p>
+    <div class="hero-stats">
+      <div class="stat"><div class="stat-val">14</div><div class="stat-lbl">Modules</div></div>
+      <div class="stat"><div class="stat-val">IEC</div><div class="stat-lbl">Standard</div></div>
+      <div class="stat"><div class="stat-val">3Φ / 1Φ</div><div class="stat-lbl">System Types</div></div>
+      <div class="stat"><div class="stat-val">PDF</div><div class="stat-lbl">Report Export</div></div>
+    </div>
+  </div>
+
+  <div class="wrap">
+
+    <!-- QUICK START -->
+    <div class="quick-start fade-in">
+      <div class="section-title">⚡ Quick Start — 5 Steps</div>
+      <div class="steps">
+        <div class="step">
+          <div class="step-num">1</div>
+          <div class="step-text"><strong>Project Info</strong><span>Enter project name, client, location and select voltage/phase.</span></div>
+        </div>
+        <div class="step">
+          <div class="step-num">2</div>
+          <div class="step-text"><strong>Add Loads</strong><span>Use a preset template or add individual loads with quantity and wattage.</span></div>
+        </div>
+        <div class="step">
+          <div class="step-num">3</div>
+          <div class="step-text"><strong>Set Demand Factor</strong><span>Pick a building type preset — the tool calculates demand load automatically.</span></div>
+        </div>
+        <div class="step">
+          <div class="step-num">4</div>
+          <div class="step-text"><strong>Size Equipment</strong><span>Move through Current → Cables → Breakers → Generator using Import buttons.</span></div>
+        </div>
+        <div class="step">
+          <div class="step-num">5</div>
+          <div class="step-text"><strong>Print Report</strong><span>Go to the Report tab, click Generate, then Print / PDF.</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- RECOMMENDED WORKFLOW -->
+    <div class="workflow fade-in">
+      <div class="section-title">🔄 Recommended Tab Workflow</div>
+      <ul class="wf-list">
+        <li>
+          <span class="wf-arrow">📋</span>
+          <div class="wf-text"><strong>Tab 1 — Project</strong><span>Always start here. System voltage and phase setting affects every other module's formulas.</span></div>
+        </li>
+        <li>
+          <span class="wf-arrow">📝</span>
+          <div class="wf-text"><strong>Tab 2 — Loads</strong><span>The foundation of all calculations. Add every load circuit — use presets as a starting point to save time.</span></div>
+        </li>
+        <li>
+          <span class="wf-arrow">📊</span>
+          <div class="wf-text"><strong>Tab 3 — Demand</strong><span>Apply your demand factor. For offices use 0.75; residential 0.70; hospitals 0.80. Add a growth margin (default 20%).</span></div>
+        </li>
+        <li>
+          <span class="wf-arrow">⚡</span>
+          <div class="wf-text"><strong>Tab 4 — Current</strong><span>Click "Import from Demand" — this auto-fills the kW and PF so you don't have to retype values.</span></div>
+        </li>
+        <li>
+          <span class="wf-arrow">〰</span>
+          <div class="wf-text"><strong>Tab 5 — Cables</strong><span>Enter the design current (use Tab 4's "Design ×1.25" value), select material, installation method and run length.</span></div>
+        </li>
+        <li>
+          <span class="wf-arrow">🔌</span>
+          <div class="wf-text"><strong>Tab 6 — Breakers</strong><span>Enter full load current. The 125% rule is applied automatically for motor and continuous loads.</span></div>
+        </li>
+        <li>
+          <span class="wf-arrow">📉</span>
+          <div class="wf-text"><strong>Tab 7 — Voltage Drop</strong><span>Use the cable size from Tab 5. A PASS/FAIL status shows against the IEC 3% or 5% limit.</span></div>
+        </li>
+        <li>
+          <span class="wf-arrow">🔋</span>
+          <div class="wf-text"><strong>Tab 8 — Generator</strong><span>Click "Import from Demand". Adjust motor start and spare margins. A standard genset kVA is recommended.</span></div>
+        </li>
+        <li>
+          <span class="wf-arrow">🔆</span>
+          <div class="wf-text"><strong>Tab 9 — Inverter</strong><span>For backup power systems. Enter the loads to back up, backup hours, battery voltage and efficiency.</span></div>
+        </li>
+        <li>
+          <span class="wf-arrow">🔄</span>
+          <div class="wf-text"><strong>Tab 10 — Transformer</strong><span>Click "Import from Demand". Select primary voltage (e.g. 11kV) and secondary (e.g. 415V).</span></div>
+        </li>
+        <li>
+          <span class="wf-arrow">📦</span>
+          <div class="wf-text"><strong>Tab 11 — BOM</strong><span>Auto-generated bill of materials. Click Export CSV to download a spreadsheet for quotation use.</span></div>
+        </li>
+        <li>
+          <span class="wf-arrow">⚖</span>
+          <div class="wf-text"><strong>Tab 12 — Phase Balance</strong><span>Click Analyse to detect phase imbalance. Apply suggested reassignments with one click to improve balance.</span></div>
+        </li>
+        <li>
+          <span class="wf-arrow">🌍</span>
+          <div class="wf-text"><strong>Tab 13 — Energy / CO₂</strong><span>Set operating hours and select your country's grid emission factor to get annual energy and carbon figures.</span></div>
+        </li>
+        <li>
+          <span class="wf-arrow">💰</span>
+          <div class="wf-text"><strong>Tab 14 — Utility Cost</strong><span>Select your country tariff preset or enter a custom rate to estimate the monthly electricity bill.</span></div>
+        </li>
+        <li>
+          <span class="wf-arrow">📄</span>
+          <div class="wf-text"><strong>Tab 15 — Report</strong><span>Click Generate then Print / PDF. The report includes all summary tables, equipment recommendations, and carbon data.</span></div>
+        </li>
+      </ul>
+    </div>
+
+    <!-- MODULE DETAILS -->
+    <div class="section-title" style="margin: 28px 0 14px; font-size: 14px;">📘 Module Details</div>
+    <div class="modules">
+
+      <!-- PROJECT INFO -->
+      <div class="mod-card fade-in">
+        <div class="mod-header" onclick="toggle(this)">
+          <div class="mod-icon" style="background:#dbeafe">📋</div>
+          <div class="mod-info"><strong>Tab 1 — Project Information</strong><span>System configuration and project metadata</span></div>
+          <span class="mod-badge badge-blue">Setup</span>
+          <span class="mod-toggle">›</span>
+        </div>
+        <div class="mod-body">
+          <p>Fill in the project name, client name, location and engineer's name. These appear on the printed report. Most importantly, set your <strong>system type</strong> (single or three phase) and <strong>supply voltage</strong> here — this affects every formula across all modules.</p>
+          <div class="mod-grid">
+            <div class="mod-field"><div class="lbl">Common Voltages</div><div class="val">230V (1Φ) · 415V (3Φ) · 400V (3Φ) · 240V (1Φ)</div></div>
+            <div class="mod-field"><div class="lbl">Power Factor Default</div><div class="val">0.8 — edit this for your installation type</div></div>
+          </div>
+          <div class="tip-box"><strong>💡 Tip:</strong> Nigeria and most of Africa use 230V single phase / 415V three phase at 50Hz. North America uses 120V / 208V at 60Hz.</div>
+        </div>
+      </div>
+
+      <!-- LOADS -->
+      <div class="mod-card fade-in">
+        <div class="mod-header" onclick="toggle(this)">
+          <div class="mod-icon" style="background:#fef3c7">📝</div>
+          <div class="mod-info"><strong>Tab 2 — Load Entry</strong><span>Build your full load schedule</span></div>
+          <span class="mod-badge badge-orange">Core</span>
+          <span class="mod-toggle">›</span>
+        </div>
+        <div class="mod-body">
+          <p>This is the most important tab — all other calculations flow from the loads you enter here. Each load row has: <strong>Description, Category, Quantity, Unit Watts, Power Factor, Demand Factor and Phase Assignment</strong>.</p>
+          <div class="mod-grid">
+            <div class="mod-field"><div class="lbl">Quick Presets</div><div class="val">2-Bed House · Office Floor · School · Hotel · Warehouse</div></div>
+            <div class="mod-field"><div class="lbl">Phase Options</div><div class="val">R · Y · B · R+Y+B (balanced 3-phase loads)</div></div>
+            <div class="mod-field"><div class="lbl">Demand Factor</div><div class="val">Fraction of time a load is actually running (0.1–1.0)</div></div>
+            <div class="mod-field"><div class="lbl">Total Auto-Sum</div><div class="val">Connected load total updates live at the bottom</div></div>
+          </div>
+          <div class="tip-box"><strong>💡 Tip:</strong> Use a preset first to populate sample data, then modify quantities and wattages to match your actual project. This is much faster than starting from scratch.</div>
+        </div>
+      </div>
+
+      <!-- DEMAND -->
+      <div class="mod-card fade-in">
+        <div class="mod-header" onclick="toggle(this)">
+          <div class="mod-icon" style="background:#dcfce7">📊</div>
+          <div class="mod-info"><strong>Tab 3 — Demand Calculation</strong><span>Apply demand and diversity factors</span></div>
+          <span class="mod-badge badge-green">Auto</span>
+          <span class="mod-toggle">›</span>
+        </div>
+        <div class="mod-body">
+          <p>Formula: <strong>Demand Load = Connected Load × Demand Factor ÷ Diversity Factor</strong>. Demand factor accounts for the fact that not all loads run simultaneously at full capacity. The growth margin adds headroom for future expansion.</p>
+          <div class="mod-grid">
+            <div class="mod-field"><div class="lbl">Office Preset</div><div class="val">0.75 demand factor</div></div>
+            <div class="mod-field"><div class="lbl">Hospital Preset</div><div class="val">0.80 — higher because critical loads run continuously</div></div>
+            <div class="mod-field"><div class="lbl">Warehouse Preset</div><div class="val">0.50 — intermittent industrial loads</div></div>
+            <div class="mod-field"><div class="lbl">Growth Margin</div><div class="val">Default 20% — adds to Design kVA for sizing</div></div>
+          </div>
+          <div class="tip-box"><strong>💡 Tip:</strong> The "Design +Margin" kVA figure is what you use for generator and transformer sizing — it already includes your growth headroom.</div>
+        </div>
+      </div>
+
+      <!-- CURRENT -->
+      <div class="mod-card fade-in">
+        <div class="mod-header" onclick="toggle(this)">
+          <div class="mod-icon" style="background:#ede9fe">⚡</div>
+          <div class="mod-info"><strong>Tab 4 — Current Calculation</strong><span>Line and phase current with 125% rule</span></div>
+          <span class="mod-badge badge-purple">Formula</span>
+          <span class="mod-toggle">›</span>
+        </div>
+        <div class="mod-body">
+          <p>Automatically switches formula based on your system type: <strong>3Φ: I = P ÷ (√3 × V × PF)</strong> or <strong>1Φ: I = P ÷ (V × PF)</strong>. The "Design ×1.25" value adds the NEC/IEC 125% continuous-load safety factor — this is the value to use for cable and breaker sizing.</p>
+          <div class="tip-box"><strong>💡 Tip:</strong> Click the yellow "⬇ Import from Demand" button to auto-fill the kW and PF from Tab 3. Never manually retype these values — it avoids transcription errors.</div>
+        </div>
+      </div>
+
+      <!-- CABLES -->
+      <div class="mod-card fade-in">
+        <div class="mod-header" onclick="toggle(this)">
+          <div class="mod-icon" style="background:#fef3c7">〰</div>
+          <div class="mod-info"><strong>Tab 5 — Cable Sizing</strong><span>IEC cable selection with derating factors</span></div>
+          <span class="mod-badge badge-orange">IEC</span>
+          <span class="mod-toggle">›</span>
+        </div>
+        <div class="mod-body">
+          <p>Selects the minimum cable size from IEC reference tables based on your corrected current (after derating for temperature and grouping). Also performs a voltage drop check against your chosen limit.</p>
+          <div class="mod-grid">
+            <div class="mod-field"><div class="lbl">Installation Method A1</div><div class="val">Conduit inside wall — most restrictive (lowest ratings)</div></div>
+            <div class="mod-field"><div class="lbl">Installation Method C</div><div class="val">Clipped direct — good airflow, higher ratings</div></div>
+            <div class="mod-field"><div class="lbl">Method E / F</div><div class="val">Cable tray / free air — highest current ratings</div></div>
+            <div class="mod-field"><div class="lbl">Ambient Temp</div><div class="val">Higher temps derate cable capacity — adjust for site conditions</div></div>
+          </div>
+          <div class="tip-box"><strong>💡 Tip:</strong> In Nigeria and hot climates, set ambient temperature to 40–45°C rather than the default 30°C. This will increase the recommended cable size to compensate for heat derating.</div>
+        </div>
+      </div>
+
+      <!-- BREAKERS -->
+      <div class="mod-card fade-in">
+        <div class="mod-header" onclick="toggle(this)">
+          <div class="mod-icon" style="background:#dcfce7">🔌</div>
+          <div class="mod-info"><strong>Tab 6 — Breaker Selection</strong><span>MCB / MCCB / ACB recommendation</span></div>
+          <span class="mod-badge badge-green">Auto</span>
+          <span class="mod-toggle">›</span>
+        </div>
+        <div class="mod-body">
+          <p>Selects the next standard breaker rating above your required current. For motor and continuous loads, the 125% multiplier is applied before selecting the rating.</p>
+          <div class="mod-grid">
+            <div class="mod-field"><div class="lbl">MCB Range</div><div class="val">6–100A — for lighting and small circuit protection</div></div>
+            <div class="mod-field"><div class="lbl">MCCB Range</div><div class="val">100–630A — main distribution boards</div></div>
+            <div class="mod-field"><div class="lbl">ACB Range</div><div class="val">630A+ — incoming main switchgear</div></div>
+            <div class="mod-field"><div class="lbl">Motor Load</div><div class="val">Select "Motor Load" type for proper 125% sizing</div></div>
+          </div>
+          <div class="tip-box"><strong>💡 Tip:</strong> Always match breaking capacity (Icu) to the available fault level at the installation point. Use 10kA for most distribution boards; 25kA+ near transformers.</div>
+        </div>
+      </div>
+
+      <!-- VOLT DROP -->
+      <div class="mod-card fade-in">
+        <div class="mod-header" onclick="toggle(this)">
+          <div class="mod-icon" style="background:#fee2e2">📉</div>
+          <div class="mod-info"><strong>Tab 7 — Voltage Drop</strong><span>PASS/FAIL check against IEC limits</span></div>
+          <span class="mod-badge badge-blue">Check</span>
+          <span class="mod-toggle">›</span>
+        </div>
+        <div class="mod-body">
+          <p>Calculates voltage drop using cable resistance from IEC tables. Shows result in Volts and percentage, with PASS/FAIL against your chosen standard. If the cable from Tab 5 fails, increase the cable size here until it passes.</p>
+          <div class="mod-grid">
+            <div class="mod-field"><div class="lbl">IEC Preferred Limit</div><div class="val">3% for final circuits from distribution board</div></div>
+            <div class="mod-field"><div class="lbl">Acceptable Limit</div><div class="val">5% for long sub-mains in large installations</div></div>
+          </div>
+          <div class="tip-box"><strong>💡 Tip:</strong> If you get a FAIL result, go back to Tab 5 and increase the cable size by one or two steps. Long cable runs — common in warehouses and campuses — often require upsizing beyond the current rating alone.</div>
+        </div>
+      </div>
+
+      <!-- GENERATOR -->
+      <div class="mod-card fade-in">
+        <div class="mod-header" onclick="toggle(this)">
+          <div class="mod-icon" style="background:#fef3c7">🔋</div>
+          <div class="mod-info"><strong>Tab 8 — Generator Sizing</strong><span>Genset kVA recommendation with margins</span></div>
+          <span class="mod-badge badge-orange">Sizing</span>
+          <span class="mod-toggle">›</span>
+        </div>
+        <div class="mod-body">
+          <p>Adds a motor start margin (default 25%) for motor inrush current, plus a spare capacity margin (default 20%), then selects the nearest standard genset size. Supports diesel, gas and dual fuel options.</p>
+          <div class="tip-box"><strong>💡 Tip:</strong> For sites with many motors (pumps, compressors, lifts), increase the motor start margin to 35–50%. Motor starting current can be 6–8× running current and will trip an undersized generator.</div>
+        </div>
+      </div>
+
+      <!-- INVERTER -->
+      <div class="mod-card fade-in">
+        <div class="mod-header" onclick="toggle(this)">
+          <div class="mod-icon" style="background:#ede9fe">🔆</div>
+          <div class="mod-info"><strong>Tab 9 — Inverter &amp; Battery</strong><span>Backup power sizing</span></div>
+          <span class="mod-badge badge-purple">Backup</span>
+          <span class="mod-toggle">›</span>
+        </div>
+        <div class="mod-body">
+          <p>Calculates inverter kVA size and the total battery bank in Ah. Accounts for inverter efficiency, battery efficiency, and depth of discharge to give real-world usable capacity.</p>
+          <div class="mod-grid">
+            <div class="mod-field"><div class="lbl">Depth of Discharge</div><div class="val">Lead Acid: 50% max · LiFePO4: 80–90% safe DoD</div></div>
+            <div class="mod-field"><div class="lbl">Battery Voltage</div><div class="val">48V is most efficient for larger systems (lower current)</div></div>
+          </div>
+          <div class="tip-box"><strong>💡 Tip:</strong> For critical loads only (not whole building), enter just the load you need to keep running during outages. This will size a much more cost-effective battery bank.</div>
+        </div>
+      </div>
+
+      <!-- PHASE BALANCE -->
+      <div class="mod-card fade-in">
+        <div class="mod-header" onclick="toggle(this)">
+          <div class="mod-icon" style="background:#dcfce7">⚖</div>
+          <div class="mod-info"><strong>Tab 12 — Phase Balancer</strong><span>Detect and fix phase imbalance</span></div>
+          <span class="mod-badge badge-green">Premium</span>
+          <span class="mod-toggle">›</span>
+        </div>
+        <div class="mod-body">
+          <p>Analyses your load schedule, calculates the percentage imbalance between R, Y and B phases, and suggests specific load reassignments to improve balance. Shows a before/after comparison and neutral current estimate.</p>
+          <div class="mod-grid">
+            <div class="mod-field"><div class="lbl">Imbalance &lt; 5%</div><div class="val">Excellent — no action needed</div></div>
+            <div class="mod-field"><div class="lbl">Imbalance 5–15%</div><div class="val">Acceptable — minor reassignment recommended</div></div>
+            <div class="mod-field"><div class="lbl">Imbalance &gt; 25%</div><div class="val">Critical — high neutral current, risk of overheating</div></div>
+            <div class="mod-field"><div class="lbl">Apply All Button</div><div class="val">Applies all suggested reassignments in one click</div></div>
+          </div>
+          <div class="tip-box"><strong>💡 Tip:</strong> High phase imbalance causes excessive neutral current, overheating of neutral conductors, and voltage imbalance which damages motors. Always aim for under 5% on balanced distribution systems.</div>
+        </div>
+      </div>
+
+      <!-- ENERGY & CARBON -->
+      <div class="mod-card fade-in">
+        <div class="mod-header" onclick="toggle(this)">
+          <div class="mod-icon" style="background:#f0fdf4">🌍</div>
+          <div class="mod-info"><strong>Tab 13 — Energy &amp; CO₂</strong><span>Annual consumption and carbon footprint</span></div>
+          <span class="mod-badge badge-green">Premium</span>
+          <span class="mod-toggle">›</span>
+        </div>
+        <div class="mod-body">
+          <p>Calculates daily, monthly and annual energy consumption in kWh, then converts to tonnes of CO₂ using your country's grid emission factor. Shows how many trees would be needed annually to offset the carbon footprint.</p>
+          <div class="tip-box"><strong>💡 Tip:</strong> This module is very useful for green building certifications and sustainability reports. Select your country from the emission factor cards for the most accurate figure.</div>
+        </div>
+      </div>
+
+      <!-- UTILITY COST -->
+      <div class="mod-card fade-in">
+        <div class="mod-header" onclick="toggle(this)">
+          <div class="mod-icon" style="background:#fef3c7">💰</div>
+          <div class="mod-info"><strong>Tab 14 — Utility Cost</strong><span>Monthly electricity bill estimate</span></div>
+          <span class="mod-badge badge-orange">Premium</span>
+          <span class="mod-toggle">›</span>
+        </div>
+        <div class="mod-body">
+          <p>Estimates the monthly electricity bill by applying energy tariff, demand charges, fixed charges and taxes. Preset tariffs are available for Nigeria, UK, USA, Ghana, South Africa and UAE. Includes energy-saving recommendations based on your load profile.</p>
+          <div class="tip-box"><strong>💡 Tip:</strong> The cost breakdown by category identifies your biggest cost drivers. HVAC and motors are typically 60–70% of industrial bills — use this data to justify efficiency upgrades to your client.</div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- TIPS -->
+    <div class="section-title" style="margin: 32px 0 16px;">💡 Pro Tips</div>
+    <div class="tips-grid">
+      <div class="tip-card fade-in">
+        <div class="tc-icon">🔗</div>
+        <strong>Always Use Import Buttons</strong>
+        <p>Every sizing module has an "⬇ Import from Demand" button. Use it — it flows calculated values automatically and prevents manual entry errors.</p>
+      </div>
+      <div class="tip-card fade-in">
+        <div class="tc-icon">🏗️</div>
+        <strong>Start with a Preset</strong>
+        <p>Load presets (Office Floor, 2-Bed House, etc.) instantly populate a realistic load schedule. Modify quantities and wattages rather than building from scratch.</p>
+      </div>
+      <div class="tip-card fade-in">
+        <div class="tc-icon">🌡️</div>
+        <strong>Adjust for Hot Climates</strong>
+        <p>In Nigeria, UAE and tropical climates, set ambient temperature to 40–45°C in the Cable Sizing tab. IEC default of 30°C will undersize your cables.</p>
+      </div>
+      <div class="tip-card fade-in">
+        <div class="tc-icon">📄</div>
+        <strong>Report for Client Proposals</strong>
+        <p>Complete all tabs then generate the report. Use Print → Save as PDF to create a professional deliverable showing load summary, equipment recommendations, and energy figures.</p>
+      </div>
+      <div class="tip-card fade-in">
+        <div class="tc-icon">📦</div>
+        <strong>Export BOM for Quoting</strong>
+        <p>The Bill of Materials tab auto-generates a components list. Click Export CSV to open in Excel for pricing and supplier quotation preparation.</p>
+      </div>
+      <div class="tip-card fade-in">
+        <div class="tc-icon">⚖️</div>
+        <strong>Balance Phases on Every Project</strong>
+        <p>Run the Phase Balancer on every 3-phase project before finalising. High imbalance causes neutral overheating and motor damage — it is a common site problem that is easy to prevent at design stage.</p>
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <div class="cta fade-in">
+      <h2>Ready to <span>calculate?</span></h2>
+      <p>Sign in to access the full 14-module professional Electrasuite.</p>
+      <a href="/dashboard/" class="cta-btn">Open the Calculator →</a>
+    </div>
+
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    © 2025 Taewoo Digital &nbsp;·&nbsp; ElectraSuite &nbsp;·&nbsp; IEC-Grade Tool-Electrical design, analysis & reporting
+  </footer>
+
+  <script>
+    // Accordion toggle
+    function toggle(header) {
+      const body = header.nextElementSibling;
+      const arrow = header.querySelector('.mod-toggle');
+      body.classList.toggle('open');
+      arrow.classList.toggle('open');
+    }
+
+    // Scroll fade-in
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        if (e.isIntersecting) {
+          e.target.classList.add('visible');
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.08 });
+
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+  </script>
+</body>
+</html>
